@@ -8,3 +8,6 @@ tutoC/ : (en cours)
 K&R/ : (en cours)
     différents programmes et exercices issus du livre 
     de Kernighan et Ritchie K&R
+
+Exercices (G. Roux) :
+https://sudrihack.fr/enseignement/Exercices.html
