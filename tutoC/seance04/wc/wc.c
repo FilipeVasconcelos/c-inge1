@@ -9,12 +9,15 @@
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
+#include <stdbool.h>
 #define IN 1
 #define OUT 0
 #define MAX_LEN 100
-//Quelques fonctions d'affichage vers stdout
 
-// fonction qui retourne une chaine présentant 
+
+// Quelques fonctions d'affichage vers stdout
+
+// fonction qui affiche une chaine présentant 
 // la syntaxe attendu du programme
 // attend une chaine de caractère en entrée 
 // (le nom du programme lu en argument)
@@ -22,23 +25,25 @@ void usage(char* exe){
     printf("Usage :\n\t %s [-l] [-c] [-w] <file> \n", exe );
 }
 
+// fonction qui affiche une erreur d'option invalide
 void ErrorOpt(char* exe, char opt){
     printf("%s: invalid option -- %c\n", exe, opt );
 }
 
+// fonction qui affiche une erreur lorsque le fichier n'existe pas
 void ErrorFile(char* exe, char* filename){
     printf("%s: cannot access '%s': No such file\n", exe, filename);
 }
 // Cette fonction prend en entrée un pointeur sur un fichier et un pointeur
 // sur un char. 
-// Si le pointeur est non nul (c'est à dire que le flux du fichier
-// correspondant est ouvert) on fait passer c par reference pour obtenir c 
-// (c'est à dire le caractère suivant)
-// Si le pointeur est nul (c'est à dire on lit stdin), le caractère c est
+// Si le pointeur est non nul:  le flux du fichier
+// correspondant qui est ouvert permet de récupérer le caractère c 
+// (on fait passer c par réference le caractère suivant)
+// Si le pointeur est nul : on lit stdin), le caractère c est
 // retourné par getchar().
 // La fonction retourne EOF à la fin du flux 
-// (la fin du fichier ou la fin de stdin)
-int readcar(FILE *fptr,char* c)
+// (que ce soit la fin du fichier ou la fin de stdin)
+int readcar(FILE* fptr, char* c)
 {
     if (fptr != NULL) {
         return fscanf(fptr,"%c",c);
@@ -51,11 +56,11 @@ int readcar(FILE *fptr,char* c)
 int main (int argc, char* argv[])
 {
     char c; 
-    FILE *fptr; // pointeur vers le fichier
+    FILE* fptr; // pointeur vers le fichier
     // quelques booleens (simulé avec des int 0: false 1: true)
-    int optc=0;    // option compte le nombre de caractères (bool) 
-    int optl=0;    // option compte le nombre de lignes (bool)
-    int optw=0;    // option compte le nombre de mots (bool)
+    bool optc=false;    // option compte le nombre de caractères (bool) 
+    bool optl=false;    // option compte le nombre de lignes (bool)
+    bool optw=false;    // option compte le nombre de mots (bool)
     int state=OUT; // etat dans l'algo pour compter les mots 
     int isEOF;     // est-ce la fin du fichier
     long int nc=0; // nombre de caractères comptés
@@ -77,13 +82,13 @@ int main (int argc, char* argv[])
             switch ( *((*argv)+1) ) 
             {
                 case 'l':
-                    optl=1;
+                    optl=true;
                     break;
                 case 'c':
-                    optc=1;
+                    optc=true;
                     break;
                 case 'w':
-                    optw=1;
+                    optw=true;
                     break;
                 case 'h':
                     usage(nomExe);
@@ -100,7 +105,7 @@ int main (int argc, char* argv[])
         else
         {
             // on teste si c'est un fichier valide
-            if (access(*argv, F_OK) == 0) 
+            if ( ! access(*argv, F_OK) ) 
             {
                 strcpy(filename,*argv);
             } else 
@@ -112,11 +117,11 @@ int main (int argc, char* argv[])
     }
     // fin de la lecture des arguments
     
-    
     // début du coeur du programme (pour obtenir nc,nl,nw)
     // on ouvre le fichier
     fptr = fopen(filename,"rb");
 
+    // tant que la lecture du fichier ou de stdin n'est pas EOF
     while ( readcar(fptr,&c) != EOF) 
     {
         ++nc;
@@ -145,5 +150,5 @@ int main (int argc, char* argv[])
     else {
         putchar('\n');
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
