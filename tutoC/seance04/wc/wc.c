@@ -62,7 +62,6 @@ int main (int argc, char* argv[])
     bool optl=false;    // option compte le nombre de lignes (bool)
     bool optw=false;    // option compte le nombre de mots (bool)
     int state=OUT; // etat dans l'algo pour compter les mots 
-    int isEOF;     // est-ce la fin du fichier
     long int nc=0; // nombre de caractères comptés
     long int nl=0; // nombre de lignes comptés
     long int nw=0; // nombre de mots comptés
