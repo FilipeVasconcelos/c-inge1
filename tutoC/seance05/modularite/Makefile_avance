@@ -1,0 +1,11 @@
+#choix du compilateur
+CC=gcc
+
+all: main
+
+f.o: f.h f.c
+	$(CC) -c f.c
+g.o: g.h g.c
+	$(CC) -c g.c
+main: main.c f.o g.o
+	$(CC) main.c f.o g.o -o main
