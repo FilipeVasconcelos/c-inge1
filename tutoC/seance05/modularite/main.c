@@ -1,8 +1,8 @@
 #include<stdio.h>
+// les prototypes des fonctions f et g se trouvent dans les fichiers "header"
+// des variables globales peuvent également être placées dans ces fichiers
 #include"f.h"
 #include"g.h"
-// les prototypes des fonctions f et g
-
 int main()
 {
     for (int x=0;x<5;x++)
