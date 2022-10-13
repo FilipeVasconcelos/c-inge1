@@ -1,11 +1,41 @@
-#choix du compilateur
+$(info -----------------------  Some compilation info --------------------------)
+UNAME:=$(shell uname -a)
+HOST:=$(shell hostname)
+$(info compiling on $(HOST))
+$(info -----------------------------------------------------------------------)
+
+# quelques variables du Makefile
+# choix du compilateur
 CC=gcc
+$(info CC  $(shell which $(CC) ))
+# options de compilation
+CFLAGS=-Wall -std=c99
+$(info CFLAGS   $(CFLAGS))
+# librairie externe (ici vide)
+LDFLAGS=
+$(info LDFLAGS $(LDFLAGS))
+INC=f.h g.h
+$(info INC $(INC))
+# fichiers sources
+OBJ=main.o f.o g.o
+$(info OBJ $(OBJ))
+# executable
+EXE=main
+$(info EXE $(EXE))
 
-all: main
+$(info -----------------------------------------------------------------------)
+$(info start compilation)
+$(info -----------------------------------------------------------------------)
+.PHONY: clean build
+# target par défaut
+build: $(EXE)
 
-f.o: f.h f.c
-	$(CC) -c f.c
-g.o: g.h g.c
-	$(CC) -c g.c
-main: main.c f.o g.o
-	$(CC) main.c f.o g.o -o main
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+$(EXE): $(OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS)	
+	
+clean: 
+	rm -f *.o $(EXE)
+
