@@ -27,8 +27,10 @@ int main()
     p1.y=0;
     p2.x=0;
     p2.y=0;
+    printf("distance %lf\n",dist(p1,p2));
     p3=&p2;
     (*p3).x=2;
-    printf("distance %lf\n",dist(p1,p2));
+    printf("distance %lf\n",dist(p1,*p3));
+    p3->x=3;
     printf("distance %lf\n",dist(p1,*p3));
 }
