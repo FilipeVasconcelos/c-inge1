@@ -3,7 +3,7 @@ SDL_LDFLAGS := $(shell sdl2-config --libs)
 
 CPP=gcc
 CFLAGS := $(SDL_CFLAGS) -O3
-LDFLAGS := $(SDL_LDFLAGS) 
+LDFLAGS := $(SDL_LDFLAGS) -lSDL2_ttf
 
 EXEC=main
 
