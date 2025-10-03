@@ -6,6 +6,6 @@ tutoC/seance03/array/array
 tutoC/seance03/cat/cat
 tutoC/seance03/wc/wc
 
-
-
 *.o
+a.out
+copt/

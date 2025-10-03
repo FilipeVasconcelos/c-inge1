@@ -3,7 +3,7 @@
 // promo     : INGE1
 // date      : 29/09/22
 // Formateur : F. Vasconcelos
-// Séance 3  : Valeur d'un char sortie formaté %c et %d 
+// Séance 1  : Valeur d'un char sortie formaté %c et %d 
 ******************************************************************************/
 #include<stdio.h>
 int main()
